@@ -15,8 +15,6 @@ const { UserFactory } = require('../factories/userFactory');
 const { MovieFactory } = require('../factories/movieFactory');
 
 describe('GET /movies', () => {
-  // let user, movie;
-
   test('Unauthorized', async () => {
     // act
     const response = await request(app)

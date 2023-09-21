@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -35,10 +34,5 @@ app.use(notFoundMiddleware);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandlerMiddleware);
-
-const mongoDsn = process.env.MONGO_DSN || 'mongodb://localhost:27017/bitfilmsdb';
-module.exports = mongoose.connect(mongoDsn, {
-  useNewUrlParser: true,
-});
 
 module.exports = app;
