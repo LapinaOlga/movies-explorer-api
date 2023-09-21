@@ -2,9 +2,11 @@ name: Lint
 
 on: [push]
 
+permissions:
+  contents: read
+
 jobs:
-  run-linters:
-    name: Run linters
+  lint:
     runs-on: ubuntu-latest
 
     steps:
