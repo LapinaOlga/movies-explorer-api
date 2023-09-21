@@ -23,5 +23,4 @@ jobs:
           mongodb-version: 6.0
 
       - run: npm install
-
       - run: npm run test

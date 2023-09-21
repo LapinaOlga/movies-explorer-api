@@ -1,7 +1,6 @@
 const { faker } = require('@faker-js/faker');
 const Movie = require('../../models/movie');
 const { Factory } = require('./factory');
-const { UserFactory } = require('./userFactory');
 
 module.exports.MovieFactory = class MovieFactory extends Factory {
   // eslint-disable-next-line
