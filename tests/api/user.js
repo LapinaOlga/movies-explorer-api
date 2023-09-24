@@ -49,32 +49,47 @@ describe('PATCH /users/me', () => {
     // act
     const response = await request(app)
       .patch('/users/me')
-      .send({ name: fakeUser.name });
+      .send({
+        name: fakeUser.name,
+        email: fakeUser.email,
+      });
 
     // assert
     expect(response.statusCode).toBe(HTTP_UNAUTHORIZED);
   });
 
   test('Bad Request', async () => {
+    const fakeUser = await new UserFactory().makeOne();
+    const dataProvider = [
+      { name: fakeUser.name },
+      { email: fakeUser.email },
+      {},
+    ];
+
     // arrange
     const user = await new UserFactory().createOne();
 
-    // act
-    const response = await request(app)
-      .patch('/users/me')
-      .set('authorization', `Bearer ${getAuthToken(user)}`)
-      .send();
+    dataProvider.map(async (data) => {
+      // act
+      const response = await request(app)
+        .patch('/users/me')
+        .set('authorization', `Bearer ${getAuthToken(user)}`)
+        .send(data);
 
-    // assert
-    expect(response.statusCode).toBe(HTTP_BAD_REQUEST);
+      // assert
+      expect(response.statusCode).toBe(HTTP_BAD_REQUEST);
+    });
   });
 
   test('Validation Error', async () => {
     const dataProvider = [
-      { name: '1' },
-      { name: faker.lorem.words(50) },
-      { name: undefined },
-      { name: faker.number.int() },
+      { name: '1', email: faker.internet.email() },
+      { name: faker.lorem.words(50), email: faker.internet.email() },
+      { name: undefined, email: faker.internet.email() },
+      { name: faker.number.int(), email: faker.internet.email() },
+      { name: faker.person.fullName(), email: faker.string.uuid() },
+      { name: faker.person.fullName(), email: undefined },
+      { name: faker.person.fullName(), email: faker.number.int() },
     ];
 
     // arrange
@@ -101,7 +116,7 @@ describe('PATCH /users/me', () => {
     const response = await request(app)
       .patch('/users/me')
       .set('authorization', `Bearer ${getAuthToken(user)}`)
-      .send({ name: fakeUser.name });
+      .send({ name: fakeUser.name, email: fakeUser.email });
 
     // assert
     expect(response.statusCode).toBe(HTTP_OK);

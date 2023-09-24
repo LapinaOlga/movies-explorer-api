@@ -7,8 +7,9 @@ const ForbiddenError = require('../errors/ForbiddenError');
 module.exports = {
   list: async (req, res, next) => {
     try {
-      const limit = req.query.limit || 30;
-      const movies = await Movie.find({}).limit(limit).populate('owner').sort({ year: 'desc' })
+      const movies = await Movie.find({ owner: req.user._id })
+        .populate('owner')
+        .sort({ year: 'desc' })
         .exec();
 
       res.send({ data: movies });

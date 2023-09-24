@@ -2,8 +2,13 @@ const jwt = require('jsonwebtoken');
 const ProtectedRouteError = require('../errors/ProtectedRouteError');
 const User = require('../models/user');
 
-module.exports = async (req, res, next) => {
+module.exports.authMiddleware = async (req, res, next) => {
   req.user = null;
+
+  if (['/signin', '/signup'].includes(req.originalUrl)) {
+    next();
+    return;
+  }
 
   const header = req.headers.authorization;
 

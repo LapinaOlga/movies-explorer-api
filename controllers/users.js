@@ -16,16 +16,20 @@ module.exports = {
   },
   updateMe: async (req, res, next) => {
     try {
-      const { name } = req.body;
+      const { name, email } = req.body;
 
       req.user = await User.findByIdAndUpdate(
         req.user._id,
-        { name },
+        { name, email },
         { new: true, runValidators: true },
       );
       res.send({ data: req.user });
     } catch (e) {
-      next(e);
+      if (e.name === 'MongoServerError' && e.code === 11000) {
+        next(new UserExistsError());
+      } else {
+        next(e);
+      }
     }
   },
   login: async (req, res, next) => {

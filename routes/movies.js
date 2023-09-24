@@ -1,16 +1,11 @@
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { validateUrl } = require('../utils/validateUrl');
-const authMiddleware = require('../middleware/auth');
 const MovieController = require('../controllers/movies');
 
-router.get('', authMiddleware, celebrate({
-  query: Joi.object().keys({
-    limit: Joi.number().min(1).max(100),
-  }).unknown(true),
-}), MovieController.list);
+router.get('', MovieController.list);
 
-router.post('', authMiddleware, celebrate({
+router.post('', celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
     director: Joi.string().required(),
@@ -41,7 +36,7 @@ router.post('', authMiddleware, celebrate({
   }).unknown(true),
 }), MovieController.create);
 
-router.delete('/:id', authMiddleware, celebrate({
+router.delete('/:id', celebrate({
   params: {
     id: Joi.string().required().hex().length(24),
   },
