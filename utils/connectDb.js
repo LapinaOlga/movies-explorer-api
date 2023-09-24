@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
+const { mongoDsn } = require('../config');
 
 module.exports.connectDb = async () => {
-  const mongoDsn = process.env.MONGO_DSN || 'mongodb://localhost:27017/bitfilmsdb';
-
   const result = await mongoose.connect(mongoDsn, {
     useNewUrlParser: true,
   });

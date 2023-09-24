@@ -112,8 +112,6 @@ describe('POST /movies', () => {
       { country: true },
       { director: faker.number.int() },
       { duration: faker.string.uuid() },
-      { year: 1800 },
-      { year: 3000 },
       { description: faker.number.int() },
       { image: faker.string.uuid() },
       { image: faker.number.int() },

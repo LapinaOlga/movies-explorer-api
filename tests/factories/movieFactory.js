@@ -17,10 +17,6 @@ module.exports.MovieFactory = class MovieFactory extends Factory {
       movieId: faker.number.int(),
       nameRU: faker.lorem.words(5),
       nameEN: faker.lorem.words(5),
-      // owner: async () => {
-      //   const user = await new UserFactory().createOne();
-      //   return user._id;
-      // },
     };
   }
 

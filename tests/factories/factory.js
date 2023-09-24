@@ -17,39 +17,7 @@ class Factory {
   }
 
   async makeOne(data = {}) {
-    const definition = { ...this.getDefinition(), ...data };
-    // const definitionKeys = Object.keys(definition);
-
-    // const promises = [];
-    //
-    // for (let i = 0; i < definitionKeys.length; i += 1) {
-    //   const definitionKey = definitionKeys[i];
-    //   const definitionValue = definition[definitionKey];
-    //
-    //   if (typeof definitionValue === 'function') {
-    //     promises.push(
-    //       new Promise((resolve, reject) => {
-    //         const result = definitionValue();
-    //
-    //         if (result instanceof Promise) {
-    //           result
-    //             .then((res) => {
-    //               definition[definitionKey] = res;
-    //               resolve(res);
-    //             })
-    //             .catch(reject);
-    //         } else {
-    //           definition[definitionKey] = result;
-    //           resolve(result);
-    //         }
-    //       }),
-    //     );
-    //   }
-    // }
-    //
-    // await Promise.all(promises);
-
-    return definition;
+    return { ...this.getDefinition(), ...data };
   }
 }
 

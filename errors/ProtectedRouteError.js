@@ -1,7 +1,8 @@
 const { HTTP_UNAUTHORIZED } = require('../enums/httpCodes');
+const { ERROR_MESSAGES } = require('../enums/errorMessages');
 
 class ProtectedRouteError extends Error {
-  constructor(message = 'Необходима авторизация') {
+  constructor(message = ERROR_MESSAGES.errors.unauthorized) {
     super(message);
     this.status = HTTP_UNAUTHORIZED;
   }

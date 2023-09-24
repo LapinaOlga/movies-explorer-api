@@ -1,28 +1,29 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const { ERROR_MESSAGES } = require('../enums/errorMessages');
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: [true, 'Email обязателен для заполнения'],
+    required: [true, ERROR_MESSAGES.validation.user.email.required],
     unique: true,
     validate: {
       validator(v) {
         return validator.isEmail(v);
       },
-      message: 'Поле email должно быть валидным email-адресом',
+      message: ERROR_MESSAGES.validation.user.email.email,
     },
   },
   password: {
     type: String,
-    required: [true, 'Пароль обязателен для заполнения'],
+    required: [true, ERROR_MESSAGES.validation.user.password.required],
     select: false,
   },
   name: {
     type: String,
-    minlength: [2, 'Поле name не может быть короче 2х символов'],
-    maxlength: [30, 'Поле name не может быть длиннее 30 символов'],
-    required: [true, 'Имя пользователя обязательно для заполнения'],
+    minlength: [2, ERROR_MESSAGES.validation.user.name.minLength],
+    maxlength: [30, ERROR_MESSAGES.validation.user.name.maxLength],
+    required: [true, ERROR_MESSAGES.validation.user.name.required],
   },
 }, { versionKey: false });
 

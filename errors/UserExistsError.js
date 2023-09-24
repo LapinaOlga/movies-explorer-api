@@ -1,8 +1,9 @@
 const { HTTP_CONFLICT } = require('../enums/httpCodes');
+const { ERROR_MESSAGES } = require('../enums/errorMessages');
 
 class UserExistsError extends Error {
   constructor() {
-    super('Пользователь с таким email уже существует');
+    super(ERROR_MESSAGES.errors.userHasAlreadyExisted);
     this.status = HTTP_CONFLICT;
   }
 

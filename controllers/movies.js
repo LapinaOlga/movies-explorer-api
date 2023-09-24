@@ -1,8 +1,8 @@
 const Movie = require('../models/movie');
-const BadRequestError = require('../errors/BadRequestError');
-const NotFoundError = require('../errors/NotFoundError');
 const { HTTP_CREATED } = require('../enums/httpCodes');
-const ForbiddenError = require('../errors/ForbiddenError');
+const MovieNotFoundError = require('../errors/MovieNotFoundError');
+const YouCanNotDeleteNotYourMovieError = require('../errors/YouCanNotDeletNotYourMoviesError');
+const MovieIdIsNotCorrectError = require('../errors/MovieIdIsNotCorrectError');
 
 module.exports = {
   list: async (req, res, next) => {
@@ -60,11 +60,11 @@ module.exports = {
       const movie = await Movie.findById(req.params.id);
 
       if (!movie) {
-        throw new NotFoundError('Фильм не найден');
+        throw new MovieNotFoundError();
       }
 
       if (movie.owner.toString() !== req.user._id.toString()) {
-        throw new ForbiddenError('Вы не можете удалять чужие фильмы');
+        throw new YouCanNotDeleteNotYourMovieError();
       }
 
       await Movie.deleteOne(movie);
@@ -72,7 +72,7 @@ module.exports = {
       res.send({ data: null });
     } catch (error) {
       if (error.name === 'CastError') {
-        next(new BadRequestError('ID фильма указан неверно'));
+        next(new MovieIdIsNotCorrectError());
       } else {
         next(error);
       }
