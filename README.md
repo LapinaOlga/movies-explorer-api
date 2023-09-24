@@ -17,8 +17,6 @@
 `npm run lint` — запуск eslint
 `npm run test` — запуск тестов
 
-## Ссылки на проект
+## Ссылка на проект
 
-IP 95.217.8.198
-
-https://lapaliv.com
+https://api.lapaliv.com
