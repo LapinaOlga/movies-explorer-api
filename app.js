@@ -7,7 +7,6 @@ const routes = require('./routes');
 
 const { notFoundMiddleware } = require('./middleware/notFound');
 const { errorHandlerMiddleware } = require('./middleware/errorHandler');
-const { authMiddleware } = require('./middleware/auth');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const { rateLimitMiddleware } = require('./middleware/rateLimit');
 
@@ -21,7 +20,6 @@ app.use(requestLogger);
 app.use(helmet());
 app.use(rateLimitMiddleware);
 
-app.use(authMiddleware);
 app.use(routes);
 app.use(notFoundMiddleware);
 app.use(errorLogger);

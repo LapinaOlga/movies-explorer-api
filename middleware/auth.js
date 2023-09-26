@@ -5,11 +5,6 @@ const User = require('../models/user');
 module.exports.authMiddleware = async (req, res, next) => {
   req.user = null;
 
-  if (['/signin', '/signup'].includes(req.originalUrl)) {
-    next();
-    return;
-  }
-
   const header = req.headers.authorization;
 
   if (!header || !header.match(/^Bearer /i)) {

@@ -19,7 +19,7 @@ module.exports.validateUpdateUserRequest = celebrate({
       .messages({
         'string.base': ERROR_MESSAGES.validation.user.email.string,
         'any.required': ERROR_MESSAGES.validation.user.email.required,
-        'any.email': ERROR_MESSAGES.validation.user.email.email,
+        'string.email': ERROR_MESSAGES.validation.user.email.email,
       }),
   }),
 });

@@ -18,8 +18,7 @@ describe('GET /movies', () => {
   test('Unauthorized', async () => {
     // act
     const response = await request(app)
-      .get('/movies')
-      .send();
+      .get('/movies');
 
     // assert
     expect(response.statusCode).toBe(HTTP_UNAUTHORIZED);
@@ -33,7 +32,7 @@ describe('GET /movies', () => {
     // act
     const response = await request(app)
       .get('/movies')
-      .set('authorization', `Bearer ${getAuthToken(user)}`);
+      .set('Authorization', `Bearer ${getAuthToken(user)}`);
 
     // assert
     expect(response.statusCode).toBe(HTTP_OK);
@@ -154,8 +153,7 @@ describe('DELETE /movies/:id', () => {
 
     // act
     const response = await request(app)
-      .delete(`/movies/${movie._id}`)
-      .send();
+      .delete(`/movies/${movie._id}`);
 
     // assert
     expect(response.statusCode).toBe(HTTP_UNAUTHORIZED);
@@ -172,8 +170,7 @@ describe('DELETE /movies/:id', () => {
     // act
     const response = await request(app)
       .delete(`/movies/${movie._id}`)
-      .set('authorization', `Bearer ${getAuthToken(user)}`)
-      .send();
+      .set('authorization', `Bearer ${getAuthToken(user)}`);
 
     // assert
     expect(response.statusCode).toBe(HTTP_FORBIDDEN);
@@ -186,8 +183,7 @@ describe('DELETE /movies/:id', () => {
     // act
     const response = await request(app)
       .delete(`/movies/${user._id}`)
-      .set('authorization', `Bearer ${getAuthToken(user)}`)
-      .send();
+      .set('authorization', `Bearer ${getAuthToken(user)}`);
 
     // assert
     expect(response.statusCode).toBe(HTTP_NOT_FOUND);
@@ -200,8 +196,7 @@ describe('DELETE /movies/:id', () => {
     // act
     const response = await request(app)
       .delete('/movies/123')
-      .set('authorization', `Bearer ${getAuthToken(user)}`)
-      .send();
+      .set('authorization', `Bearer ${getAuthToken(user)}`);
 
     // assert
     expect(response.statusCode).toBe(HTTP_BAD_REQUEST);
@@ -215,8 +210,7 @@ describe('DELETE /movies/:id', () => {
     // act
     const response = await request(app)
       .delete(`/movies/${movie._id}`)
-      .set('authorization', `Bearer ${getAuthToken(user)}`)
-      .send();
+      .set('authorization', `Bearer ${getAuthToken(user)}`);
 
     // assert
     expect(response.statusCode).toBe(HTTP_OK);
