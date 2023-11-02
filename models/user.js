@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 const { ERROR_MESSAGES } = require('../enums/errorMessages');
+const { validateEmail } = require('../utils/validateEmail');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -8,9 +8,7 @@ const userSchema = new mongoose.Schema({
     required: [true, ERROR_MESSAGES.validation.user.email.required],
     unique: true,
     validate: {
-      validator(v) {
-        return validator.isEmail(v);
-      },
+      validator: validateEmail,
       message: ERROR_MESSAGES.validation.user.email.email,
     },
   },

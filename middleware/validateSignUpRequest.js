@@ -1,11 +1,17 @@
 const { celebrate, Joi } = require('celebrate');
 const { ERROR_MESSAGES } = require('../enums/errorMessages');
+const { validateEmail } = require('../utils/validateEmail');
 
 module.exports.validateSignUpRequest = celebrate({
   body: Joi.object().keys({
     email: Joi.string()
       .required()
-      .email()
+      .custom((value, helper) => {
+        if (validateEmail(value)) {
+          return value;
+        }
+        return helper.message(ERROR_MESSAGES.validation.user.email.email);
+      })
       .messages({
         'string.base': ERROR_MESSAGES.validation.user.email.string,
         'any.required': ERROR_MESSAGES.validation.user.email.required,
