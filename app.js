@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
 
 const routes = require('./routes');
 
@@ -15,6 +16,7 @@ process.env.JWT_SECRET = process.env.JWT_SECRET || (process.env.NODE_ENV === 'pr
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 app.use(helmet());
