@@ -82,6 +82,7 @@ module.exports.ERROR_MESSAGES = {
         minLength: 'Поле name не может быть короче 2х символов',
         maxLength: 'Поле name не может быть длиннее 30 символов',
         string: 'Поле name должно быть строкой',
+        regex: 'Поле name указано неверно',
       },
     },
   },

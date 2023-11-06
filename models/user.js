@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { ERROR_MESSAGES } = require('../enums/errorMessages');
 const { validateEmail } = require('../utils/validateEmail');
+const { validateUserName } = require('../utils/validateUserName');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -22,6 +23,10 @@ const userSchema = new mongoose.Schema({
     minlength: [2, ERROR_MESSAGES.validation.user.name.minLength],
     maxlength: [30, ERROR_MESSAGES.validation.user.name.maxLength],
     required: [true, ERROR_MESSAGES.validation.user.name.required],
+    validate: {
+      validator: validateUserName,
+      message: ERROR_MESSAGES.validation.user.name.regex,
+    },
   },
 }, { versionKey: false });
 
